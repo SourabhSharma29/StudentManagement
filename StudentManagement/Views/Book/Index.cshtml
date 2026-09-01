@@ -1,0 +1,27 @@
+﻿@model List<StudentManagement.Models.BookModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<a href="Book/Create">Add Books </a>
+
+<table class=" table table-bordered">
+    <tr>
+        <td>ID</td>
+        <td>Title</td>
+        <td>ISBN</td>
+        <td>Category</td>
+    </tr>
+
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.ID</td>
+            <td>@emp.Title</td>
+            <td>@emp.ISBN</td>
+            <td>@emp.Category</td>
+        </tr>
+    }
+</table>

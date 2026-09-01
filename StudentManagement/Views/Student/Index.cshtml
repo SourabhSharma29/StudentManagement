@@ -1,0 +1,35 @@
+﻿@model List<StudentManagement.Models.StudentModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<a href="Student/Create">Add Student </a>
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>MobileNumber</th>        
+    </tr>
+
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.ID</td>
+            <td>@emp.Name</td>
+            <td>@emp.Email</td>
+            <td>@emp.MobileNumber</td>       
+
+        </tr>
+    }
+
+
+
+
+
+</table>
