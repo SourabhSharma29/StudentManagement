@@ -1,0 +1,32 @@
+﻿@model StudentManagement.Models.BookModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Book/Delete" method="post">
+
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="@Model.ID" name="ID" />
+        <label for="Title">Title - @Model.Title</label>
+    </div>
+
+    <div class="form-group">
+        <label for="Author">Author - @Model.Author</label>
+    </div>
+
+    <div class="form-group">
+        <label for="ISBN">ISBN- @Model.ISBN</label>
+    </div>
+
+    <div class="form-group">
+        <label for="Category">Category- @Model.Category</label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" name="Submit">Delete</button>
+    </div>
+
+
+</form>

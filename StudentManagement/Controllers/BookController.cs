@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace StudentManagement.Controllers
+namespace LibraryManagement.Controllers
 {
     public class BookController : Controller
     {
@@ -14,7 +14,7 @@ namespace StudentManagement.Controllers
         public ActionResult Index()
         {
             List<BookModel> bookModels = new List<BookModel>();
-            SqlConnection sqlConnection = new SqlConnection(@"data source=SOURABH\SQLEXPRESS; initial catalog=StudentManagement; integrated security= true;");
+            SqlConnection sqlConnection = new SqlConnection(@"data source=ANIL; initial catalog=StudentManagement; integrated security= true;");
             SqlCommand sqlCommand = new SqlCommand("select * from Books", sqlConnection);
             sqlConnection.Open();
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -26,7 +26,7 @@ namespace StudentManagement.Controllers
                 bookModel.ISBN = sqlDataReader["ISBN"].ToString();
                 bookModel.Category = sqlDataReader["Category"].ToString();
 
-                bookModels.Add(bookModel);        
+                bookModels.Add(bookModel);
             }
             sqlConnection.Close();
             return View(bookModels);
@@ -40,36 +40,77 @@ namespace StudentManagement.Controllers
 
         public ActionResult Create(BookModel bookModel)
         {
-            SqlConnection sqlConnection = new SqlConnection(@"data source=SOURABH\SQLEXPRESS; initial catalog =StudentManagement; integrated security = true;");
+            SqlConnection sqlConnection = new SqlConnection(@"data source=ANIL; initial catalog =StudentManagement; integrated security = true;");
             SqlCommand sqlCommand = new SqlCommand(" insert into Books values('" + bookModel.Title + "','" + bookModel.Author + "','" + bookModel.ISBN + "','" + bookModel.Category + "')", sqlConnection); ;
             sqlConnection.Open();
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
             return View(bookModel);
         }
-
+        
         public ActionResult Edit(int ID)
         {
-            return View();
+            BookModel bookModel = new BookModel();
+            SqlConnection sqlConnection = new SqlConnection(@"data source=ANIL; initial catalog=StudentManagement; integrated security= true;");
+            SqlCommand sqlCommand = new SqlCommand("select * from Books where id=" + ID, sqlConnection);
+            sqlConnection.Open();
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            while (sqlDataReader.Read())
+            {
+               
+                bookModel.ID = (int)sqlDataReader["ID"];
+                bookModel.Title = sqlDataReader["Title"].ToString();
+                bookModel.ISBN = sqlDataReader["ISBN"].ToString();
+                bookModel.Author = sqlDataReader["Author"].ToString();
+                bookModel.Category = sqlDataReader["Category"].ToString();
+                 
+            }
+            sqlConnection.Close();
+            return View(bookModel); 
         }
 
         [HttpPost]
 
         public ActionResult Edit(BookModel bookModel)
         {
-            return View();
+            SqlConnection sqlConnection = new SqlConnection(@"data source=ANIL; initial catalog =StudentManagement; integrated security = true;");
+            string query = " update Books set Title='" + bookModel.Title + "', Author='" + bookModel.Author + "',ISBN='" + bookModel.ISBN + "',Category='" + bookModel.Category + "' where id="+bookModel.ID;
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection); ;
+            sqlConnection.Open();
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            return View(bookModel);
         }
-
         public ActionResult Delete(int ID)
         {
-            return View();
+            BookModel bookModel = new BookModel();
+            SqlConnection sqlConnection = new SqlConnection(@"data source=ANIL; initial catalog=StudentManagement; integrated security= true;");
+            SqlCommand sqlCommand = new SqlCommand("select * from Books where id=" + ID, sqlConnection);
+            sqlConnection.Open();
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            while (sqlDataReader.Read())
+            {
+
+                bookModel.ID = (int)sqlDataReader["ID"];
+                bookModel.Title = sqlDataReader["Title"].ToString();
+                bookModel.ISBN = sqlDataReader["ISBN"].ToString();
+                bookModel.Author = sqlDataReader["Author"].ToString();
+                bookModel.Category = sqlDataReader["Category"].ToString();
+
+            }
+            sqlConnection.Close();
+            return View(bookModel);
         }
-
         [HttpPost]
-
         public ActionResult Delete(BookModel bookModel)
         {
-            return View();
-        }
+            SqlConnection sqlConnection = new SqlConnection(@"data source=ANIL; initial catalog =StudentManagement; integrated security = true;");
+            string query = " delete from books where id=" + bookModel.ID;
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection); ;
+            sqlConnection.Open();
+            sqlCommand.ExecuteNonQuery();
+            sqlConnection.Close();
+            return RedirectToAction("Index");
+        }          
     }
 }

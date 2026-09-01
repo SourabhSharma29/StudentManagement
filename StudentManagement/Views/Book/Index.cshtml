@@ -22,6 +22,11 @@
             <td>@emp.Title</td>
             <td>@emp.ISBN</td>
             <td>@emp.Category</td>
+            <td>@Html.ActionLink("Edit", "Edit", "Book", new { @emp.ID },new { @class="btn btn-danger" })</td>
+            <td>
+                <a href="/book/delete/@emp.ID" class="btn btn-danger">delete</a>
+            </td>
+
         </tr>
     }
 </table>

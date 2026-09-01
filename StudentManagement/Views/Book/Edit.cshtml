@@ -1,0 +1,36 @@
+﻿@model StudentManagement.Models.BookModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Book/Edit" method="post">
+
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="@Model.ID" name="ID" />
+        <label for="Title">Title</label>
+        <input type="text" class="form-control" value="@Model.Title" name="Title" />
+    </div>
+
+    <div class="form-group">
+        <label for="Author">Author</label>
+        <input type="text" class="form-control" value="@Model.Author" name="Author" />
+    </div>
+
+    <div class="form-group">
+        <label for="ISBN">ISBN</label>
+        <input type="text" class="form-control" value="@Model.ISBN" name="ISBN" />
+    </div>
+
+    <div class="form-group">
+        <label for="Category">Category</label>
+        <input type="text" class="form-control" value="@Model.Category" name="Category" />
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" name="Submit">Submit</button>
+    </div>
+
+
+</form>
